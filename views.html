@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Tungsten.js</title>
+<link rel="stylesheet" type="text/css" media="screen" href="css/all-1452172441000.css">
+</head>
+<body>
+<div id="layout">
+    <div id="menu">
+        <div class="pure-menu">
+            <a class="pure-menu-heading" href="index.html">Tungsten.js</a>
+            <ul class="pure-menu-list">
+                <li><a href="index.html" class="pure-menu-link pure-menu-section">Docs</a>
+                    <ul class="pure-menu-list">
+                        <li class="pure-menu-item"><a href="views.html" class="pure-menu-link">Views</a></li>
+                        <li class="pure-menu-item"><a href="templates.html" class="pure-menu-link">Templates</a></li>
+                        <li class="pure-menu-item"><a href="models.html" class="pure-menu-link">Models</a></li>
+                        <li class="pure-menu-item"><a href="components.html" class="pure-menu-link">Components</a></li>
+                        <li class="pure-menu-item"><a href="debugger.html" class="pure-menu-link">Debugger</a></li>
+                    </ul>
+                </li>
+
+                <li><a href="tutorials.html" class="pure-menu-link pure-menu-section">Tutorials</a>
+                    <ul class="pure-menu-list"> <li class="pure-menu-item"><a href="tutorials.html#Hello%20World" class="pure-menu-link js-tutorial-select">Hello World</a></li>  <li class="pure-menu-item"><a href="tutorials.html#Derived%20Props" class="pure-menu-link js-tutorial-select">Derived Props</a></li>  <li class="pure-menu-item"><a href="tutorials.html#TodoMVC" class="pure-menu-link js-tutorial-select">TodoMVC</a></li>  <li class="pure-menu-item"><a href="tutorials.html#Views%20&amp;%20Context" class="pure-menu-link js-tutorial-select">Views &amp; Context</a></li>  <li class="pure-menu-item"><a href="tutorials.html#Events" class="pure-menu-link js-tutorial-select">Events</a></li> </ul>
+                </li>
+            </ul>
+            <ul class="pure-menu-list bottom-menu">
+                <li class="pure-menu-item"><a target="_blank" href="https://www.npmjs.com/package/tungstenjs" class="pure-menu-link">npm</a></li>
+                <li class="pure-menu-item"><a target="_blank" href="https://github.com/wayfair/tungstenjs" class="pure-menu-link">GitHub</a></li>
+                <li class="pure-menu-item"><a target="_blank" href="http://engineering.wayfair.com/" class="pure-menu-link">Wayfair<br>Engineering</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="main" id="appwrapper">
+        <div class="header">
+            <h1></h1>
+
+            <h2></h2>
+        </div>
+        <div class="content">
+            <h1 id="views">Views</h1>
+<p>Views in Tungsten.js use the standard Backbone (or Ampersand) view API, along with a few added features such as child views and extended event handling.  Each view&#39;s model is inferred from the template.</p>
+<h2 id="child-views">Child Views</h2>
+<p>Child views of the app view are defined via a <code>childViews</code> hash on the view constructor, with the key being the class name of the child view and the value being the constructor for the child view.  Note: these class names must be prefixed with <code>js-</code>.</p>
+<pre><code class="lang-javascript">BaseView.extend({
+  // [...]
+  childViews: {
+    &#39;js-child-view&#39;: ChildView,
+  }
+}
+</code></pre>
+<p>The <code>js-</code> class name for the child view must be a descendant element of the current view.  If the element doesn&#39;t exist, the view won&#39;t be rendered (until the element does exist, so mustache conditionals can be used to hide and show views).  If there are multiple descendant elements for the child view then Tungsten.js will render the view for each element.  If this is because mustache is iterating through a collection, then each of these views will have the model of the collection as its scope (see next section).</p>
+<p>Unlike the app view, child views should not set their own template.</p>
+<h2 id="scope-this-model-">Scope (<code>this.model</code>)</h2>
+<p>Tungsten.js will automatically infer the scope of the model for this child view as it traverses the template to build out the initial state.  If the child view element is wrapped in <code>{{#myModel}}{{/myModel}}</code> where <code>myModel</code> refers to a property on the current view&#39;s <code>this.model</code> that references another model (see <code>relations</code> hash), then that child view&#39;s <code>this.model</code> will be <code>myModel</code>.   If the child view element is wrapped in <code>{{#myCollection}}{{/myCollection}}</code> where <code>myCollection</code> refers to a property on the current view&#39;s <code>this.model</code> that references another collection (see <code>relations</code> hash), then Tungsten.js will create a child view for each rendered element, and each of those child views&#39; <code>this.model</code> will be the relevant model from <code>myCollection</code>.</p>
+<p>Usually this inferred scope is the expected behavior for the application.  However, it can be overridden by replacing the child view constructor with an object which has two properties: a key <code>scope</code> with the value being the string referencing the property name for the scope, and a key <code>view</code> with the value being the child view constructor.</p>
+<pre><code class="lang-javascript">BaseView.extend({
+  // [...]
+  childViews: {
+    // for each &#39;item&#39; model in the &#39;items&#39; collection
+    // render a new &#39;js-child-view&#39; using the ChildView
+    // this.model in the each view will be the corresponding item model
+    &#39;js-child-view&#39;: ChildView,
+    // render the data in the property &#39;meta&#39; using
+    // MetaView with &#39;js-meta&#39; as the views element
+    &#39;js-meta&#39;: {
+      scope: &#39;meta&#39;,
+      view: MetaView
+    }
+}
+</code></pre>
+<h2 id="event-handling">Event Handling</h2>
+<p>Events are defined with the standard <a href="http://backbonejs.org/#View-events"><code>events</code> hash</a> API when using the Backbone or Ampersand adaptor.  If a selector is passed in the event key, however, it can only use a <code>js-</code> prefixed class selector.  This optimizes performance when delegating events because under the hood, unlike Backbone or Ampersand, Tungsten.js provides its own event delegation system.  By default, all events are delegated from the document.  Special events can also be handled by an <a href="https://github.com/wayfair/tungstenjs/tree/master/src/event/handlers">event handler plugin</a>.  The included event handlers are:</p>
+<ul>
+<li>Directional swipe events - exactly what it sounds like<ul>
+<li><code>swipeup</code>, <code>swipedown</code>, <code>swipeleft</code>, <code>swiperight</code></li>
+</ul>
+</li>
+<li>Intent Events - limited to a subset of events that can be &quot;cancelled&quot;. The handler will be called n milliseconds (default 200ms) after the initial event if it is not &quot;cancelled&quot;<ul>
+<li>Bindable by appending <code>-intent</code> to one of the following events and configurable using the eventOptions hash</li>
+<li><code>mouseenter</code>, <code>mouseleave</code>, <code>mousedown</code>, <code>mouseup</code>, <code>keydown</code>, <code>keyup</code>, <code>touchstart</code>, <code>touchend</code></li>
+</ul>
+</li>
+<li>Document bindings - Adds an event binding to the document with delegation still working as expected<ul>
+<li>Bindable by prepending <code>doc-</code> to any event type</li>
+</ul>
+</li>
+<li>Window bindings - Adds an event binding to the window<ul>
+<li>Bindable by prepending <code>win-</code> to any event that the window fires (primarily scroll or resize, and height/width/scroll values are cached to prevent repeated reads)</li>
+</ul>
+</li>
+<li>Outside Events - Adds an event binding to events firing outside of the element<ul>
+<li>Bindable by appending <code>-outside</code> to any event type</li>
+</ul>
+</li>
+<li>Submit Data - Adds an event binding to form submit events with the form&#39;s serialized data passed as the second parameter of the callback (uses <a href="https://github.com/defunctzombie/form-serialize">form-serialize</a>)<ul>
+<li>Bindable by using the <code>submit-data</code> event type</li>
+</ul>
+</li>
+</ul>
+<p>They can be used directly in Tungsten.js views by using the events hash as usual.  For example:</p>
+<pre><code class="lang-javascript">View.extend({
+  // [...]
+  events: {
+    // standard click event
+    &#39;click .js-bar&#39; : &#39;doSomethingOnClick&#39;,
+    // mouseenter-intent event (see corresponding eventOptions object)
+    &#39;mouseenter-intent .js-foo&#39; : &#39;doSomethingOnHoverIntent&#39;,
+    // window scroll event
+    &#39;win-scroll&#39; : &#39;doSomethingOnScroll&#39;,
+    // outside event
+    &#39;click-outside .js-foo&#39; :&#39;doSomethingOnOutsideClick&#39;,
+    // submit data event
+    &#39;submit-data .js-form&#39; : &#39;setData&#39;
+  },
+  // eventOptions hash to override default custom event options
+  eventOptions: {
+    &#39;mouseenter-intent .js-foo&#39;: {
+      // intentDelay defaults to 200ms; override to 100ms
+      intentDelay: 100
+    }
+  }
+});
+</code></pre>
+
+        </div>
+    </div>
+
+</div>
+
+<script src="js/all-1452172441000.js"></script></body>
+
+</html>
