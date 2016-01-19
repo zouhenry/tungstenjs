@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Tungsten.js</title>
-<link rel="stylesheet" type="text/css" media="screen" href="css/all-1452172441000.css">
+<link rel="stylesheet" type="text/css" media="screen" href="css/all-1453152330000.css">
 </head>
 <body>
 <div id="layout">
@@ -22,7 +22,7 @@
                 </li>
 
                 <li><a href="tutorials.html" class="pure-menu-link pure-menu-section">Tutorials</a>
-                    <ul class="pure-menu-list"> <li class="pure-menu-item"><a href="tutorials.html#Hello%20World" class="pure-menu-link js-tutorial-select">Hello World</a></li>  <li class="pure-menu-item"><a href="tutorials.html#Derived%20Props" class="pure-menu-link js-tutorial-select">Derived Props</a></li>  <li class="pure-menu-item"><a href="tutorials.html#TodoMVC" class="pure-menu-link js-tutorial-select">TodoMVC</a></li>  <li class="pure-menu-item"><a href="tutorials.html#Views%20&amp;%20Context" class="pure-menu-link js-tutorial-select">Views &amp; Context</a></li>  <li class="pure-menu-item"><a href="tutorials.html#Events" class="pure-menu-link js-tutorial-select">Events</a></li> </ul>
+                    <ul class="pure-menu-list"> <li class="pure-menu-item"><a href="tutorials.html#Hello%20World" class="pure-menu-link js-tutorial-select">Hello World</a></li>  <li class="pure-menu-item"><a href="tutorials.html#Derived%20Props" class="pure-menu-link js-tutorial-select">Derived Props</a></li>  <li class="pure-menu-item"><a href="tutorials.html#TodoMVC" class="pure-menu-link js-tutorial-select">TodoMVC</a></li>  <li class="pure-menu-item"><a href="tutorials.html#Views%20&amp;%20Context" class="pure-menu-link js-tutorial-select">Views &amp; Context</a></li>  <li class="pure-menu-item"><a href="tutorials.html#Events" class="pure-menu-link js-tutorial-select">Events</a></li>  <li class="pure-menu-item"><a href="tutorials.html#Components" class="pure-menu-link js-tutorial-select">Components</a></li> </ul>
                 </li>
             </ul>
             <ul class="pure-menu-list bottom-menu">
@@ -43,34 +43,30 @@
 <p>Views in Tungsten.js use the standard Backbone (or Ampersand) view API, along with a few added features such as child views and extended event handling.  Each view&#39;s model is inferred from the template.</p>
 <h2 id="child-views">Child Views</h2>
 <p>Child views of the app view are defined via a <code>childViews</code> hash on the view constructor, with the key being the class name of the child view and the value being the constructor for the child view.  Note: these class names must be prefixed with <code>js-</code>.</p>
-<pre><code class="lang-javascript">BaseView.extend({
-  // [...]
+<pre><code class="hljs">BaseView.extend({
+  <span class="hljs-comment">// [...]</span>
   childViews: {
-    &#39;js-child-view&#39;: ChildView,
+    <span class="hljs-string">'js-child-view'</span>: ChildView,
   }
-}
-</code></pre>
-<p>The <code>js-</code> class name for the child view must be a descendant element of the current view.  If the element doesn&#39;t exist, the view won&#39;t be rendered (until the element does exist, so mustache conditionals can be used to hide and show views).  If there are multiple descendant elements for the child view then Tungsten.js will render the view for each element.  If this is because mustache is iterating through a collection, then each of these views will have the model of the collection as its scope (see next section).</p>
+}</code></pre><p>The <code>js-</code> class name for the child view must be a descendant element of the current view.  If the element doesn&#39;t exist, the view won&#39;t be rendered (until the element does exist, so mustache conditionals can be used to hide and show views).  If there are multiple descendant elements for the child view then Tungsten.js will render the view for each element.  If this is because mustache is iterating through a collection, then each of these views will have the model of the collection as its scope (see next section).</p>
 <p>Unlike the app view, child views should not set their own template.</p>
 <h2 id="scope-this-model-">Scope (<code>this.model</code>)</h2>
 <p>Tungsten.js will automatically infer the scope of the model for this child view as it traverses the template to build out the initial state.  If the child view element is wrapped in <code>{{#myModel}}{{/myModel}}</code> where <code>myModel</code> refers to a property on the current view&#39;s <code>this.model</code> that references another model (see <code>relations</code> hash), then that child view&#39;s <code>this.model</code> will be <code>myModel</code>.   If the child view element is wrapped in <code>{{#myCollection}}{{/myCollection}}</code> where <code>myCollection</code> refers to a property on the current view&#39;s <code>this.model</code> that references another collection (see <code>relations</code> hash), then Tungsten.js will create a child view for each rendered element, and each of those child views&#39; <code>this.model</code> will be the relevant model from <code>myCollection</code>.</p>
 <p>Usually this inferred scope is the expected behavior for the application.  However, it can be overridden by replacing the child view constructor with an object which has two properties: a key <code>scope</code> with the value being the string referencing the property name for the scope, and a key <code>view</code> with the value being the child view constructor.</p>
-<pre><code class="lang-javascript">BaseView.extend({
-  // [...]
+<pre><code class="hljs">BaseView.extend({
+  <span class="hljs-comment">// [...]</span>
   childViews: {
-    // for each &#39;item&#39; model in the &#39;items&#39; collection
-    // render a new &#39;js-child-view&#39; using the ChildView
-    // this.model in the each view will be the corresponding item model
-    &#39;js-child-view&#39;: ChildView,
-    // render the data in the property &#39;meta&#39; using
-    // MetaView with &#39;js-meta&#39; as the views element
-    &#39;js-meta&#39;: {
-      scope: &#39;meta&#39;,
+    <span class="hljs-comment">// for each 'item' model in the 'items' collection</span>
+    <span class="hljs-comment">// render a new 'js-child-view' using the ChildView</span>
+    <span class="hljs-comment">// this.model in the each view will be the corresponding item model</span>
+    <span class="hljs-string">'js-child-view'</span>: ChildView,
+    <span class="hljs-comment">// render the data in the property 'meta' using</span>
+    <span class="hljs-comment">// MetaView with 'js-meta' as the views element</span>
+    <span class="hljs-string">'js-meta'</span>: {
+      scope: <span class="hljs-string">'meta'</span>,
       view: MetaView
     }
-}
-</code></pre>
-<h2 id="event-handling">Event Handling</h2>
+}</code></pre><h2 id="event-handling">Event Handling</h2>
 <p>Events are defined with the standard <a href="http://backbonejs.org/#View-events"><code>events</code> hash</a> API when using the Backbone or Ampersand adaptor.  If a selector is passed in the event key, however, it can only use a <code>js-</code> prefixed class selector.  This optimizes performance when delegating events because under the hood, unlike Backbone or Ampersand, Tungsten.js provides its own event delegation system.  By default, all events are delegated from the document.  Special events can also be handled by an <a href="https://github.com/wayfair/tungstenjs/tree/master/src/event/handlers">event handler plugin</a>.  The included event handlers are:</p>
 <ul>
 <li>Directional swipe events - exactly what it sounds like<ul>
@@ -100,35 +96,33 @@
 </li>
 </ul>
 <p>They can be used directly in Tungsten.js views by using the events hash as usual.  For example:</p>
-<pre><code class="lang-javascript">View.extend({
-  // [...]
+<pre><code class="hljs">View.extend({
+  <span class="hljs-comment">// [...]</span>
   events: {
-    // standard click event
-    &#39;click .js-bar&#39; : &#39;doSomethingOnClick&#39;,
-    // mouseenter-intent event (see corresponding eventOptions object)
-    &#39;mouseenter-intent .js-foo&#39; : &#39;doSomethingOnHoverIntent&#39;,
-    // window scroll event
-    &#39;win-scroll&#39; : &#39;doSomethingOnScroll&#39;,
-    // outside event
-    &#39;click-outside .js-foo&#39; :&#39;doSomethingOnOutsideClick&#39;,
-    // submit data event
-    &#39;submit-data .js-form&#39; : &#39;setData&#39;
+    <span class="hljs-comment">// standard click event</span>
+    <span class="hljs-string">'click .js-bar'</span> : <span class="hljs-string">'doSomethingOnClick'</span>,
+    <span class="hljs-comment">// mouseenter-intent event (see corresponding eventOptions object)</span>
+    <span class="hljs-string">'mouseenter-intent .js-foo'</span> : <span class="hljs-string">'doSomethingOnHoverIntent'</span>,
+    <span class="hljs-comment">// window scroll event</span>
+    <span class="hljs-string">'win-scroll'</span> : <span class="hljs-string">'doSomethingOnScroll'</span>,
+    <span class="hljs-comment">// outside event</span>
+    <span class="hljs-string">'click-outside .js-foo'</span> :<span class="hljs-string">'doSomethingOnOutsideClick'</span>,
+    <span class="hljs-comment">// submit data event</span>
+    <span class="hljs-string">'submit-data .js-form'</span> : <span class="hljs-string">'setData'</span>
   },
-  // eventOptions hash to override default custom event options
+  <span class="hljs-comment">// eventOptions hash to override default custom event options</span>
   eventOptions: {
-    &#39;mouseenter-intent .js-foo&#39;: {
-      // intentDelay defaults to 200ms; override to 100ms
-      intentDelay: 100
+    <span class="hljs-string">'mouseenter-intent .js-foo'</span>: {
+      <span class="hljs-comment">// intentDelay defaults to 200ms; override to 100ms</span>
+      intentDelay: <span class="hljs-number">100</span>
     }
   }
-});
-</code></pre>
-
+});</code></pre>
         </div>
     </div>
 
 </div>
 
-<script src="js/all-1452172441000.js"></script></body>
+<script src="js/all-1427988721000.js"></script></body>
 
 </html>

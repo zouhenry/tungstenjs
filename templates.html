@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Tungsten.js</title>
-<link rel="stylesheet" type="text/css" media="screen" href="css/all-1452172441000.css">
+<link rel="stylesheet" type="text/css" media="screen" href="css/all-1453152330000.css">
 </head>
 <body>
 <div id="layout">
@@ -22,7 +22,7 @@
                 </li>
 
                 <li><a href="tutorials.html" class="pure-menu-link pure-menu-section">Tutorials</a>
-                    <ul class="pure-menu-list"> <li class="pure-menu-item"><a href="tutorials.html#Hello%20World" class="pure-menu-link js-tutorial-select">Hello World</a></li>  <li class="pure-menu-item"><a href="tutorials.html#Derived%20Props" class="pure-menu-link js-tutorial-select">Derived Props</a></li>  <li class="pure-menu-item"><a href="tutorials.html#TodoMVC" class="pure-menu-link js-tutorial-select">TodoMVC</a></li>  <li class="pure-menu-item"><a href="tutorials.html#Views%20&amp;%20Context" class="pure-menu-link js-tutorial-select">Views &amp; Context</a></li>  <li class="pure-menu-item"><a href="tutorials.html#Events" class="pure-menu-link js-tutorial-select">Events</a></li> </ul>
+                    <ul class="pure-menu-list"> <li class="pure-menu-item"><a href="tutorials.html#Hello%20World" class="pure-menu-link js-tutorial-select">Hello World</a></li>  <li class="pure-menu-item"><a href="tutorials.html#Derived%20Props" class="pure-menu-link js-tutorial-select">Derived Props</a></li>  <li class="pure-menu-item"><a href="tutorials.html#TodoMVC" class="pure-menu-link js-tutorial-select">TodoMVC</a></li>  <li class="pure-menu-item"><a href="tutorials.html#Views%20&amp;%20Context" class="pure-menu-link js-tutorial-select">Views &amp; Context</a></li>  <li class="pure-menu-item"><a href="tutorials.html#Events" class="pure-menu-link js-tutorial-select">Events</a></li>  <li class="pure-menu-item"><a href="tutorials.html#Components" class="pure-menu-link js-tutorial-select">Components</a></li> </ul>
                 </li>
             </ul>
             <ul class="pure-menu-list bottom-menu">
@@ -43,15 +43,13 @@
 <p>The markup for Tungsten.js views are described by mustache templates which are shared for both server-side and client-side rendering.</p>
 <h2 id="server-side-rendering">Server Side Rendering</h2>
 <p>By default, Tungsten.js expects that on page load the HTML for the initial state will be rendered from the server using the same data and template that was used to bootstrap the application.  This means that Tungsten.js will not re-render on the application on page load.  This default behavior, however, can be overridden by setting the <code>dynamicInitialize</code> property when initializing the app view:</p>
-<pre><code class="lang-javascript">module.exports = new AppView({
-  el: &#39;#app&#39;,
+<pre><code class="hljs"><span class="hljs-built_in">module</span>.exports = <span class="hljs-keyword">new</span> AppView({
+  el: <span class="hljs-string">'#app'</span>,
   template: template,
-  model: new AppModel(window.data),
-  // Set the following line for client-side only rendering
-  dynamicInitialize: true
-});
-</code></pre>
-<p><code>dynamicInitialize</code> should only be set when the application won&#39;t be rendered from the server and will instead be client-side rendered only.</p>
+  model: <span class="hljs-keyword">new</span> AppModel(<span class="hljs-built_in">window</span>.data),
+  <span class="hljs-comment">// Set the following line for client-side only rendering</span>
+  dynamicInitialize: <span class="hljs-literal">true</span>
+});</code></pre><p><code>dynamicInitialize</code> should only be set when the application won&#39;t be rendered from the server and will instead be client-side rendered only.</p>
 <p>Tungsten.js is agnostic to the server technology used to render the template.  The only restriction is that the output of the server-side rendered template mustache match the output of the bootstrapped data and client-side template.  There are implementations of mustache rendering engines available in a variety of server-side technologies, including <a href="https://github.com/raycmorgan/Mu">Node.js</a>, <a href="https://github.com/spullara/mustache.java">Java</a>, <a href="https://github.com/mrtazz/plustache">C++</a>, <a href="https://github.com/bobthecow/mustache.php">PHP</a>, and <a href="https://github.com/hoisie/mustache">Go</a>.</p>
 <h2 id="pre-compiled-templates">Pre-compiled Templates</h2>
 <p>Each template and partial should be pre-compiled with the provided wrapper for the Ractive-based pre-compiler. A webpack loader, <code>tungsten_template</code>, is provided for this purpose.  With this template pre-compiling, there are a few edge cases which depart from standard mustache rules:</p>
@@ -65,24 +63,22 @@
 <li><code>&lt;a&gt;</code> elements cannot be nested.</li>
 </ul>
 <p>A <a href="http://webpack.github.io/">webpack</a> loader, <code>tungsten_template</code>, is provided to pre-compile JS template functions, and can be included like so in the <code>webpack.config.js</code>:</p>
-<pre><code class="lang-javascript">module.exports = {
-  // [...]
+<pre><code class="hljs"><span class="hljs-built_in">module</span>.exports = {
+  <span class="hljs-comment">// [...]</span>
   resolveLoader: {
-    modulesDirectories: [&#39;node_modules&#39;, &#39;node_modules/tungstenjs/precompile&#39;]
+    modulesDirectories: [<span class="hljs-string">'node_modules'</span>, <span class="hljs-string">'node_modules/tungstenjs/precompile'</span>]
   },
-  module: {
+  <span class="hljs-built_in">module</span>: {
     loaders: [
-      { test: /\.mustache$/, loader: &#39;tungsten_template&#39; }
+      { test: <span class="hljs-regexp">/\.mustache$/</span>, loader: <span class="hljs-string">'tungsten_template'</span> }
     ]
   }
-}
-</code></pre>
-
+}</code></pre>
         </div>
     </div>
 
 </div>
 
-<script src="js/all-1452172441000.js"></script></body>
+<script src="js/all-1427988721000.js"></script></body>
 
 </html>

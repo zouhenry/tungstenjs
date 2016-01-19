@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Tungsten.js</title>
-<link rel="stylesheet" type="text/css" media="screen" href="css/all-1452172441000.css">
+<link rel="stylesheet" type="text/css" media="screen" href="css/all-1453152330000.css">
 </head>
 <body>
 <div id="layout">
@@ -22,7 +22,7 @@
                 </li>
 
                 <li><a href="tutorials.html" class="pure-menu-link pure-menu-section">Tutorials</a>
-                    <ul class="pure-menu-list"> <li class="pure-menu-item"><a href="tutorials.html#Hello%20World" class="pure-menu-link js-tutorial-select">Hello World</a></li>  <li class="pure-menu-item"><a href="tutorials.html#Derived%20Props" class="pure-menu-link js-tutorial-select">Derived Props</a></li>  <li class="pure-menu-item"><a href="tutorials.html#TodoMVC" class="pure-menu-link js-tutorial-select">TodoMVC</a></li>  <li class="pure-menu-item"><a href="tutorials.html#Views%20&amp;%20Context" class="pure-menu-link js-tutorial-select">Views &amp; Context</a></li>  <li class="pure-menu-item"><a href="tutorials.html#Events" class="pure-menu-link js-tutorial-select">Events</a></li> </ul>
+                    <ul class="pure-menu-list"> <li class="pure-menu-item"><a href="tutorials.html#Hello%20World" class="pure-menu-link js-tutorial-select">Hello World</a></li>  <li class="pure-menu-item"><a href="tutorials.html#Derived%20Props" class="pure-menu-link js-tutorial-select">Derived Props</a></li>  <li class="pure-menu-item"><a href="tutorials.html#TodoMVC" class="pure-menu-link js-tutorial-select">TodoMVC</a></li>  <li class="pure-menu-item"><a href="tutorials.html#Views%20&amp;%20Context" class="pure-menu-link js-tutorial-select">Views &amp; Context</a></li>  <li class="pure-menu-item"><a href="tutorials.html#Events" class="pure-menu-link js-tutorial-select">Events</a></li>  <li class="pure-menu-item"><a href="tutorials.html#Components" class="pure-menu-link js-tutorial-select">Components</a></li> </ul>
                 </li>
             </ul>
             <ul class="pure-menu-list bottom-menu">
@@ -69,33 +69,23 @@
 <p><code>npm install git+http://github.com:wayfair/tungstenjs.git#master --save</code></p>
 <h3 id="umd">UMD</h3>
 <p>The UMD build is also available for including Tungsten.js in a project.  It assumes <a href="http://underscorejs.org/">underscore</a> is included as <code>window._</code>.  Other dependencies are bundled in the build.</p>
-<pre><code class="lang-html">&lt;!-- Include underscore --&gt;
-&lt;script src=&quot;//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js&quot;&gt;&lt;/script&gt;
-&lt;!-- Core Tungsten.js --&gt;
-&lt;script src=&quot;./node_modules/tungstenjs/dist/tungsten.core.js&quot;&gt;&lt;/script&gt;
-&lt;!-- Backbone.js Adaptor --&gt;
-&lt;script src=&quot;./node_modules/tungstenjs/dist/tungsten.backbone.js&quot;&gt;&lt;/script&gt;
-</code></pre>
-<p>For compiling templates, <a href="http://www.ractivejs.org/">ractive</a> at <code>window.Ractive</code> is necessary, along with the Tungsten.js template compiler (ordinarily this would be done on the server):</p>
-<pre><code class="lang-html">&lt;!-- Compiler for parsed template objects --&gt;
-&lt;script src=&quot;./node_modules/tungstenjs/dist/tungsten.template.js&quot;&gt;&lt;/script&gt;
-&lt;!-- Include Ractive for parsing templates --&gt;
-&lt;script src=&quot;//cdn.ractivejs.org/latest/ractive.js&quot;&gt;&lt;/script&gt;
-&lt;!-- to compile templates, use tungsten.template.compileTemplates({myTemplate: &#39;Hello {{name}.&#39;})` --&gt;
-</code></pre>
-<p>An client-side only example of a Tungsten.js app using the UMD build is available in the <a href="https://github.com/wayfair/tungstenjs/tree/master/examples/browser-standalone">examples</a>.</p>
+<pre><code class="hljs"><span class="xml"><span class="hljs-comment">&lt;!-- Include underscore --&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"</span>&gt;</span><span class="undefined"></span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+<span class="hljs-comment">&lt;!-- Backbone.js Adaptor --&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"./node_modules/tungstenjs/dist/tungsten.backbone.js"</span>&gt;</span><span class="undefined"></span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></span></code></pre><p>For compiling templates, <a href="http://www.ractivejs.org/">ractive</a> at <code>window.Ractive</code> is necessary.  The template compiler is bundled in the build (ordinarily precompiling templates would be done on the server):</p>
+<pre><code class="hljs"><span class="xml"><span class="hljs-comment">&lt;!-- Include Ractive for parsing templates --&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"//cdn.ractivejs.org/latest/ractive.js"</span>&gt;</span><span class="undefined"></span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+<span class="hljs-comment">&lt;!-- to compile templates, use tungsten._template.compileTemplates({myTemplate: 'Hello </span></span><span class="hljs-template-variable">{{name}.'})` --&gt;</span></code></pre><p>An client-side only example of a Tungsten.js app using the UMD build is available in the <a href="https://github.com/wayfair/tungstenjs/tree/master/examples/browser-standalone">examples</a>.</p>
 <h3 id="bundler-e-g-webpack-">Bundler (e.g., webpack)</h3>
 <p>The recommended method of adding Tungsten.js to your application is via a module bundler such as <a href="http://webpack.github.io/">webpack</a>.  Because Backbone expects <code>jQuery</code> to be present, Tungsten.js includes a jQuery-less shim, <code>src/polyfill/jquery</code>, which is included in the webpack build:</p>
-<pre><code class="lang-javascript">module.exports = {
-  // [...]
+<pre><code class="hljs"><span class="hljs-built_in">module</span>.exports = {
+  <span class="hljs-comment">// [...]</span>
   resolve: {
     alias: {
-      &#39;jquery&#39;: path.join(__dirname, &#39;../src/polyfill/jquery&#39;)
+      <span class="hljs-string">'jquery'</span>: path.join(__dirname, <span class="hljs-string">'../src/polyfill/jquery'</span>)
     }
   }
-};
-</code></pre>
-<p>See <a href="https://github.com/wayfair/tungstenjs/tree/master/examples">examples</a> for more details.</p>
+};</code></pre><p>See <a href="https://github.com/wayfair/tungstenjs/tree/master/examples">examples</a> for more details.</p>
 <h3 id="requirements">Requirements</h3>
 <ul>
 <li><code>Node.js</code> (for builds; not necessary for production runtime)</li>
@@ -106,17 +96,15 @@
 <p>The Backbone.js adaptor can be included by requiring <code>tungstenjs/adaptors/backbone</code> after installing the <code>tungstenjs</code> Node module.  Similarly, the Ampersand.js adaptor can be included by requiring <code>tungstenjs/adaptors/ampersand</code>.  Each of these adaptors provide a <code>view</code>, <code>model</code>, and <code>collection</code> property which should be used as the base view, model, and collection constructors in the application.  As usual with Backbone and Ampersand, custom constructors can extend from each of these.</p>
 <h2 id="getting-started">Getting Started</h2>
 <p>When using the Backbone or Ampersand adaptor, we recommend starting with an app model, app view, and app (<a href="https://mustache.github.io/">mustache</a>) template.  These are the entry points for a Tungsten.js applications.  A place to bootstrap the app and get everything started is also needed: often this is in the form of an init file:</p>
-<pre><code class="lang-javascript">var AppView = require(&#39;./views/app_view&#39;);
-var AppModel = require(&#39;./models/app_model&#39;);
-var template = require(&#39;../templates/app_view.mustache&#39;);
+<pre><code class="hljs"><span class="hljs-keyword">var</span> AppView = <span class="hljs-built_in">require</span>(<span class="hljs-string">'./views/app_view'</span>);
+<span class="hljs-keyword">var</span> AppModel = <span class="hljs-built_in">require</span>(<span class="hljs-string">'./models/app_model'</span>);
+<span class="hljs-keyword">var</span> template = <span class="hljs-built_in">require</span>(<span class="hljs-string">'../templates/app_view.mustache'</span>);
 
-module.exports = new AppView({
-  el: &#39;#app&#39;,
+<span class="hljs-built_in">module</span>.exports = <span class="hljs-keyword">new</span> AppView({
+  el: <span class="hljs-string">'#app'</span>,
   template: template,
-  model: new AppModel(window.data)
-});
-</code></pre>
-<p>See the Tungsten.js <a href="https://github.com/wayfair/tungstenjs/tree/master/examples/todomvc">TodoMVC</a> app for a complete example.</p>
+  model: <span class="hljs-keyword">new</span> AppModel(<span class="hljs-built_in">window</span>.data)
+});</code></pre><p>See the Tungsten.js <a href="https://github.com/wayfair/tungstenjs/tree/master/examples/todomvc">TodoMVC</a> app for a complete example.</p>
 <h2 id="documentation">Documentation</h2>
 <p>Detailed documentation on Tungsten.js features can be found in <code>/docs</code>:</p>
 <ul>
@@ -148,6 +136,6 @@ module.exports = new AppView({
 
 </div>
 
-<script src="js/all-1452172441000.js"></script></body>
+<script src="js/all-1427988721000.js"></script></body>
 
 </html>
