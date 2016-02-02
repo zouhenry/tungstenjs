@@ -37,6 +37,7 @@
 <a href="https://www.npmjs.com/package/tungstenjs"><img src="https://badge.fury.io/js/tungstenjs.svg" alt="npm version"></a>
 <a href="https://codecov.io/github/wayfair/tungstenjs?branch=master"><img src="https://codecov.io/github/wayfair/tungstenjs/coverage.svg?branch=master" alt="code coverage"></a></p>
 <p>Tungsten.js is a modular framework for creating web UIs with high-performance rendering on both server and client.</p>
+<p><a href="https://wayfair.github.io/tungstenjs/">wayfair.github.io/tungstenjs/</a></p>
 <h2 id="what-tungsten-js-provides">What Tungsten.js Provides</h2>
 <ul>
 <li>High-performance virtual DOM updates powered by <a href="https://github.com/Matt-Esch/virtual-dom">virtual-dom</a></li>
@@ -65,10 +66,8 @@
 <pre><code class="hljs"><span class="xml"><span class="hljs-comment">&lt;!-- Include underscore --&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"</span>&gt;</span><span class="undefined"></span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
 <span class="hljs-comment">&lt;!-- Backbone.js Adaptor --&gt;</span>
-<span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"./node_modules/tungstenjs/dist/tungsten.backbone.js"</span>&gt;</span><span class="undefined"></span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></span></code></pre><p>For compiling templates, <a href="http://www.ractivejs.org/">ractive</a> at <code>window.Ractive</code> is necessary.  The template compiler is bundled in the build (ordinarily precompiling templates would be done on the server):</p>
-<pre><code class="hljs"><span class="xml"><span class="hljs-comment">&lt;!-- Include Ractive for parsing templates --&gt;</span>
-<span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"//cdn.ractivejs.org/latest/ractive.js"</span>&gt;</span><span class="undefined"></span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
-<span class="hljs-comment">&lt;!-- to compile templates, use tungsten._template.compileTemplates({myTemplate: 'Hello </span></span><span class="hljs-template-variable">{{name}.'})` --&gt;</span></code></pre><p>An client-side only example of a Tungsten.js app using the UMD build is available in the <a href="https://github.com/wayfair/tungstenjs/tree/master/examples/browser-standalone">examples</a>.</p>
+<span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"./node_modules/tungstenjs/dist/tungsten.backbone.js"</span>&gt;</span><span class="undefined"></span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></span></code></pre><p>To compile templates, use <code>tungsten._template.compileTemplates({myTemplate: &#39;Hello {{name}.&#39;})</code>.  Ordinarily this is done on the server at build time.</p>
+<p>An client-side only example of a Tungsten.js app using the UMD build is available in the <a href="https://github.com/wayfair/tungstenjs/tree/master/examples/browser-standalone">examples</a>.</p>
 <h3 id="bundler-e-g-webpack-">Bundler (e.g., webpack)</h3>
 <p>The recommended method of adding Tungsten.js to your application is via a module bundler such as <a href="http://webpack.github.io/">webpack</a>.  Because Backbone expects <code>jQuery</code> to be present, Tungsten.js includes a jQuery-less shim, <code>src/polyfill/jquery</code>, which is included in the webpack build:</p>
 <pre><code class="hljs"><span class="hljs-built_in">module</span>.exports = {
