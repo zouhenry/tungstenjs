@@ -105,7 +105,13 @@
       intentDelay: <span class="hljs-number">100</span>
     }
   }
-});</code></pre>
+});</code></pre><h2 id="lifecycle-methods">Lifecycle Methods</h2>
+<h3 id="-postinitialize-"><code>postInitialize</code></h3>
+<p>Any logic that should happen in the view&#39;s initialization should be done in a <code>postInitialize</code> method on the view.  Never override <code>initialize</code>.  If extending a view that already implements <code>postInitialize</code>, consider adding <code>MyView.prototype.postInitialize.apply(this);</code> in the extended view&#39;s <code>postInitialize</code> method (where <code>MyView</code> is the view being inherited from).</p>
+<h3 id="-postrender-"><code>postRender</code></h3>
+<p>In Tungsten.js, <code>render</code> is an implementation detail, and generally logic shouldn&#39;t rely on whether or when a view is being rendered.  From the view perspective, it&#39;s hard to rely on or predict when <code>render</code> will actually be called.</p>
+<p>That being said, there are times when it&#39;s necessary to know when a view has rendered.  For example, a view might need to access its height and width after it&#39;s rendered in order to apply some customized styling.  For these edge cases, the <code>postRender</code> function is made available, and this is called synchronously after the DOM is updated (nb: but not necessarily before a browser reflow is completed).  Alternatively, the view will fire a <code>rendered</code> event immediately before <code>postRender</code> is called.</p>
+
         </div>
       </div>
     </div>
