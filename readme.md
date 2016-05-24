@@ -47,7 +47,7 @@ Dependencies are bundled in the build.  It exposes [underscore] and [backbone]
 as `tungstenjs._` and `tungstenjs.Backbone` to be used globally if necessary.
 
 To compile templates, use
-`tungsten.templateHelper.compileTemplates({myTemplate: 'Hello {{name}.'})`.
+`tungsten.templateHelper.compileTemplates({myTemplate: 'Hello {{name}}.'})`.
 Ordinarily this is done on the server at build time.
 
 An client-side only example of a Tungsten.js app using the UMD build is
